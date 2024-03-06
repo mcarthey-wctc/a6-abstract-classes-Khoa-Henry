@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AbstractMedia.Core.Models;
 
 namespace AbstractMedia.Core.Context;
@@ -18,7 +19,6 @@ public class MediaRepository : IMediaRepository
         _context.SaveChanges();
     }
 
-    // TODO: Implement the FindMedia method
     public Media FindMedia(string type, string title)
     {
         // Instructions:
@@ -31,6 +31,10 @@ public class MediaRepository : IMediaRepository
 
         foreach (var media in _context.Media)
         {
+            if (media.Title == title && media.GetType().Name == type)
+            {
+                return media;
+            }
         }
 
         // Your code ends here.
