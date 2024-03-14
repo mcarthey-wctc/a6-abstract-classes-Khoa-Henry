@@ -25,8 +25,9 @@ public class MainService : IMainService
             Console.WriteLine("1. Enter new media");
             Console.WriteLine("2. Find media");
             Console.WriteLine("3. List all media of a specific type");
-            Console.WriteLine("4. Exit");
-            Console.Write("Enter your choice (1, 2, 3, or 4): ");
+            Console.WriteLine("4. Search media by title");
+            Console.WriteLine("5. Exit");
+            Console.Write("Enter your choice (1, 2, 3, 4, or 5): ");
             var choice = Console.ReadLine();
 
             switch (choice)
@@ -41,6 +42,9 @@ public class MainService : IMainService
                     _mediaService.ListMediaByType();
                     break;
                 case "4":
+                    _mediaService.SearchMedia();
+                    break;
+                case "5":
                     exit = true;
                     break;
                 default:

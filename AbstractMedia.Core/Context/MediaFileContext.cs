@@ -9,6 +9,8 @@ namespace AbstractMedia.Core.Context;
 public class MediaFileContext : IMediaContext
 {
     private readonly string _filePath;
+    public List<Media> Media { get; set; }
+
 
     public MediaFileContext(string filePath)
     {
@@ -43,8 +45,6 @@ public class MediaFileContext : IMediaContext
     {
         return Media.FirstOrDefault(m => m.Id == id);
     }
-
-    public List<Media> Media { get; set; }
 
     public void SaveChanges()
     {
@@ -99,7 +99,6 @@ public class MediaFileContext : IMediaContext
         return mediaList;
     }
 
-    // TODO: Implement the SaveDataToFile method
     private void SaveDataToFile(List<Media> media)
     {
         // Instructions:
@@ -111,7 +110,50 @@ public class MediaFileContext : IMediaContext
         // 4. Make sure to include a header line at the top of the file with the names of the properties.
 
         // Your code starts here.
+        List<string> finalMedia = new List<string> { "Type,Id,Title,Season,Episode,Writers,Format,Length,Regions,Genres", };
 
+
+        foreach (Media item in media)
+        {
+            //Format
+            string type = item.GetType().Name;
+            string title = item.Title;
+            string id = item.Id.ToString();
+            string genresString = "", season = "", episode = "", writers = "", format = "", length = "", regions = "";
+
+
+            if (type == "Movie")
+            {
+                Movie movieItem = (Movie)item;
+                genresString = string.Join("|", movieItem.Genres);
+
+            }
+            else if (type == "Show")
+            {
+                Show showItem = (Show)item;
+                season = showItem.Season.ToString();
+                writers = string.Join("|", showItem.Writers);
+                episode = showItem.Episode.ToString();
+
+            }
+            else if (type == "Video")
+            {
+                Video videoItem = (Video)item;
+                format = videoItem.Format;
+                length = videoItem.Length.ToString();
+                regions = string.Join("|", videoItem.Regions.Select(x => x.ToString()));
+
+            }
+            else
+            {
+                throw new Exception("Unknown media type");
+            }
+
+            string line = $"{type},{id},{title},{season},{episode},{writers},{format},{length},{regions},{genresString}";
+            finalMedia.Add(line);
+        }
+
+        File.WriteAllLines(_filePath, finalMedia);
         // Your code ends here.
     }
 }

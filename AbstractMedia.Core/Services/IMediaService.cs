@@ -6,5 +6,6 @@ public interface IMediaService
 {
     void EnterNewMedia();
     void FindMedia();
+    void SearchMedia();
     void ListMediaByType();
 }
