@@ -73,6 +73,22 @@ public class MediaService : IMediaService
         }
     }
 
+    public void SearchMedia()
+    {
+        Console.WriteLine("Enter the title of media: ");
+        var title = Console.ReadLine();
+
+        var media = _mediaRepository.SearchMedia(title);
+        if (media.First() != null)
+        {
+            Console.WriteLine(media.First().ToString());
+        }
+        else
+        {
+            Console.WriteLine("Media not found.");
+        }
+    }
+
     public void ListMediaByType()
     {
         Console.WriteLine("Enter the type of media (Movie, Show, Video): ");
