@@ -19,4 +19,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0" />
     <PackageReference Include="NReco.Logging.File" Version="1.1.4" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MovieLibraryEntities\MovieLibraryEntities.csproj" />
+  </ItemGroup>
 </Project>
