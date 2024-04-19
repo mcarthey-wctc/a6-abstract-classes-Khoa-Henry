@@ -1,6 +1,8 @@
 ﻿using System;
 using AbstractMedia.Core.Context;
 using AbstractMedia.Core.Services;
+using MovieLibraryEntities.Dao;
+using MovieLibraryEntities.Context;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -23,8 +25,10 @@ public class Startup
 
         // Add new lines of code here to register any interfaces and concrete services you create
         services.AddTransient<IMainService, MainService>();
-        services.AddScoped<IMediaContext>(provider => new MediaFileContext("Files/media.csv"));
-        services.AddSingleton<IMediaRepository, MediaRepository>();
+        //services.AddScoped<IMediaContext>(provider => new MediaFileContext("Files/media.csv"));
+        //services.AddSingleton<IMediaRepository, MediaRepository>();
+        services.AddSingleton<IRepository, Repository>();
+        //services.AddDbContextFactory<MovieContext>();
         services.AddTransient<IMediaService, MediaService>();
 
         return services.BuildServiceProvider();

@@ -7,5 +7,6 @@ public interface IMediaRepository
 {
     void AddMedia(Media media);
     Media FindMedia(string type, string title);
+    IEnumerable<Media> SearchMedia(string title);
     IEnumerable<Media> GetAllMedia();
 }
